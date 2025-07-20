@@ -14,16 +14,155 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      accounts: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          timezone: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          timezone?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          timezone?: string
+        }
+        Relationships: []
+      }
+      suppliers: {
+        Row: {
+          account_id: string
+          address: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          phone: string | null
+          type: Database["public"]["Enums"]["supplier_type"]
+        }
+        Insert: {
+          account_id: string
+          address?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+          type: Database["public"]["Enums"]["supplier_type"]
+        }
+        Update: {
+          account_id?: string
+          address?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          type?: Database["public"]["Enums"]["supplier_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "suppliers_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          account_id: string
+          created_at: string
+          email: string
+          id: string
+          role: Database["public"]["Enums"]["user_role"]
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          email: string
+          id: string
+          role?: Database["public"]["Enums"]["user_role"]
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          email?: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "users_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicles: {
+        Row: {
+          account_id: string
+          created_at: string
+          current_odometer: number
+          id: string
+          model: string
+          plate: string
+          type: Database["public"]["Enums"]["vehicle_type"]
+          year: number
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          current_odometer?: number
+          id?: string
+          model: string
+          plate: string
+          type: Database["public"]["Enums"]["vehicle_type"]
+          year: number
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          current_odometer?: number
+          id?: string
+          model?: string
+          plate?: string
+          type?: Database["public"]["Enums"]["vehicle_type"]
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicles_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_account_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      supplier_type: "fuel" | "repair"
+      user_role: "owner" | "manager" | "driver"
+      vehicle_type: "car" | "van" | "motorcycle" | "truck"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +289,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      supplier_type: ["fuel", "repair"],
+      user_role: ["owner", "manager", "driver"],
+      vehicle_type: ["car", "van", "motorcycle", "truck"],
+    },
   },
 } as const
