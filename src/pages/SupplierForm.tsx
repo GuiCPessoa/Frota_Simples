@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Home } from 'lucide-react';
 
 const formSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -155,14 +155,22 @@ const SupplierForm = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto p-6">
         <div className="mb-6">
-          <Button
-            variant="outline"
-            onClick={() => navigate('/suppliers')}
-            className="mb-4"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Voltar
-          </Button>
+          <div className="flex space-x-2 mb-4">
+            <Button
+              variant="outline"
+              onClick={() => navigate('/suppliers')}
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Voltar
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate('/dashboard')}
+            >
+              <Home className="mr-2 h-4 w-4" />
+              Dashboard
+            </Button>
+          </div>
           <h1 className="text-3xl font-bold mb-2">
             {isEditing ? 'Editar Fornecedor' : 'Novo Fornecedor'}
           </h1>

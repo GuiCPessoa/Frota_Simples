@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Home } from 'lucide-react';
 
 const formSchema = z.object({
   plate: z.string().min(1, 'Placa é obrigatória'),
@@ -146,14 +146,22 @@ const VehicleForm = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto p-6">
         <div className="mb-6">
-          <Button
-            variant="outline"
-            onClick={() => navigate('/vehicles')}
-            className="mb-4"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Voltar
-          </Button>
+          <div className="flex space-x-2 mb-4">
+            <Button
+              variant="outline"
+              onClick={() => navigate('/vehicles')}
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Voltar
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate('/dashboard')}
+            >
+              <Home className="mr-2 h-4 w-4" />
+              Dashboard
+            </Button>
+          </div>
           <h1 className="text-3xl font-bold mb-2">
             {isEditing ? 'Editar Veículo' : 'Novo Veículo'}
           </h1>
